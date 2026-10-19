@@ -1,0 +1,62 @@
+### Obtener todos los usuarios (Lo mismo que hace el navegador)
+GET http://localhost:8080/api/usuarios
+
+### Registrar un nuevo pago para el Usuario 4
+POST http://localhost:8080/api/pagos
+Content-Type: application/json
+
+{
+  "usuario": {
+    "id": 4
+  },
+  "mesAnioCubierto": "Agosto 2026",
+  "medioPago": "Transferencia",
+  "registradoPor": "Sistema",
+  "plan": "Plan Premium",
+  "monto": 140000.00,
+  "datosAdicionales": "{\"nro_comprobante\": \"TRX-987654\", \"banco\": \"Galicia\"}"
+}
+
+### Crear un horario de clase base
+POST http://localhost:8080/api/horarios
+Content-Type: application/json
+
+{
+  "sede": "Boedo",
+  "diaSemana": "Lunes",
+  "horaInicio": "09:00:00",
+  "horaFin": "11:00:00",
+  "cupoMaximo": 10,
+  "estado": "Activo"
+}
+
+### Prueba 1: Camino Feliz (Usuario 4 reserva su lugar)
+POST http://localhost:8080/api/reservas
+Content-Type: application/json
+
+{
+  "usuario": {
+    "id": 4
+  },
+  "horario": {
+    "id": 1
+  },
+  "fecha": "2026-09-28"
+}
+
+### Prueba 2: Camino Triste (Usuario fantasma 11 intenta reservar)
+POST http://localhost:8080/api/reservas
+Content-Type: application/json
+
+{
+  "usuario": {
+    "id": 11
+  },
+  "horario": {
+    "id": 1
+  },
+  "fecha": "2026-09-28"
+}
+
+### 6. Obtener Grilla del Calendario Semanal (Radar para React)
+GET http://localhost:8080/api/horarios/disponibilidad?fechaInicio=2026-09-28&fechaFin=2026-10-04
